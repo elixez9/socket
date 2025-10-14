@@ -16,10 +16,11 @@ def run_server():
         request = client_socket.recv(1024)
         request = request.decode("utf-8")  #تبدیل کردن بایت
         if request == "close":  #اگر clientپیغام colse داد ببند
-            client_socket.send(b"close".encode("utf-8"))
+            client_socket.send("close".encode("utf-8"))
             break
 
         print(f"Received {request}")
+        client_socket.send(request.encode("utf-8"))
     client_socket.close()
     server_socket.close()
 
