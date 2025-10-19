@@ -9,16 +9,16 @@ def handle_client(client_socket, client_address):
     try:
         while True:
             request = client_socket.recv(1024).decode("utf-8")
-            if request == "close":
-                client_socket.send("close".encode("utf-8"))
+            if request.lower() == "close":
+                client_socket.send("closed".encode("utf-8"))
                 break
-        print(f"Received {request}")
-        client_socket.send("accepted".encode("utf-8"))
+            print(f"Received {request}")
+            client_socket.send("accepted".encode("utf-8"))
     except Exception as e:
         print(f"ERROR handling client: {e}")
     finally:
         client_socket.close()
-        print(f"Connecting to client {client_address[0]} : {client_address[1]} closed")
+        print(f"Connecting to client {client_address[0]}:{client_address[1]} closed")
 
 
 def run_server():
@@ -39,5 +39,6 @@ def run_server():
         print(f"ERROR: {e}")
     finally:
         server_socket.close()
+
 
 run_server()

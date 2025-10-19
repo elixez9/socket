@@ -10,7 +10,7 @@ def run_client():
 
     try:
         while True:
-            msg = input("enter your message: ")
+            msg = input("enter a message :")
             client_socket.send(msg.encode("utf-8")[:1024])
 
             response = client_socket.recv(1024)
@@ -19,10 +19,13 @@ def run_client():
             if response.lower() == "closed":
                 break
 
-            print(f"Received: {response}")
+            print(f" Received: {response}")
 
     except Exception as e:
         print(f"ERROR: {e}")
     finally:
         client_socket.close()
         print("Client disconnected")
+
+
+run_client()
